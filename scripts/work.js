@@ -1,5 +1,5 @@
 const grid = document.getElementById ('grid'); 
-let level = 1; // keeps track of progress
+let level = 1;
 let gridSize = 4;
 const levelContainer = document.getElementById ('level');
 
@@ -120,8 +120,13 @@ currentCards.forEach(card => {
     card.addEventListener('click', () => runSelectionCheck (card));
 });
 
+let lastClickTime = 0;
+const clickDelay = 500;
 
 function runSelectionCheck (card) {
+    const now = Date.now ();
+    if (now - lastClickTime < clickDelay) return ;
+    lastClickTime = now;
     if (card === currentCards[lastSelection]) {
         alert ("you cannot click on the same card twice in a row.");
         return ;
